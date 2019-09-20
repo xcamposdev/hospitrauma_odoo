@@ -1,0 +1,1 @@
+# hospitrauma_odoo
