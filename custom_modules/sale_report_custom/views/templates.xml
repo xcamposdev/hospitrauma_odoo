@@ -1,6 +1,5 @@
-<odoo>
-    <data>
-        <template id="report_saleorder_document_custom" inherit_id="sale.report_saleorder_document">
+﻿<?xml version="1.0"?>
+<data inherit_id="sale.report_saleorder_document">
             <xpath expr="//div[@class='row mt32 mb32']" position="replace">
                 <div style="font-size:16px" class="row mt32 mb32" id="informations">
                     <div class="col-xs-3">
@@ -11,11 +10,15 @@
                         <strong>Fecha:</strong>
                         <p t-field="doc.date_order" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
                     </div>
-                    <div t-if="not is_pro_forma" class="col-xs-3">
-                        <strong>Plazo de entrega:</strong>
+                    <!--<div t-if="not is_pro_forma" class="col-xs-3">
+                        <strong>Plazo de e:</strong>
                         <p t-field="doc.validity_date" t-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
-                    </div>
+                    </div>-->
                 </div>
+            </xpath>
+            
+             <xpath expr="//p[@t-field='doc.note']" position="replace">
+                <p class="hidden" t-field="doc.note"/>
             </xpath>
             
             <xpath expr="//div[@class='row mt32 mb32']" position="after">
@@ -27,21 +30,81 @@
                 </div>
             </xpath>
             
-            <xpath expr="//div[@class='clearfix']" position="after">
-                <div class="col-xs-2">
-                     <strong>Fecha Vencimiento:</strong>
-                     <p t-field="doc.validity_date"/>
-                 </div>
-                 <div class="col-xs-2">
-                     <strong>Forma de Pago:</strong>
-                     <p t-field="doc.payment_term_id"/>
-                 </div>
-                 <div class="col-xs-2">
-                     <strong>Datos Bancarios:</strong>
-                     <p>0000000 BANCO XXX</p>
-                 </div>
+            <xpath expr="//table[@class='table table-condensed']//thead//tr//th[1]" position="replace">
+                <th class="text-center">Referencia</th>
             </xpath>
             
-        </template>
-    </data>
-</odoo>
+            <xpath expr="//table[@class='table table-condensed']//thead//tr//th[1]" position="after">
+                <th class="text-center">Descripción</th>
+            </xpath>
+            
+            <xpath expr="//table[@class='table table-condensed']//thead//tr//th[6]" position="replace"/>
+            
+            <xpath expr="//table[@class='table table-condensed']//tbody//t" position="replace">
+                <t t-foreach="page" t-as="layout_category">
+                    <t t-if="layout_category_size &gt; 1 or page_size &gt; 1" groups="sale.group_sale_layout">
+                        <tr class="active">
+                            <td colspan="7" style="font-weight: bold; border-bottom: 1px solid black;">&amp;bull;
+                                <t t-esc="layout_category['name']"/>
+                            </td>
+                        </tr>
+                    </t>
+
+                    <!-- Lines associated -->
+                    <t t-foreach="layout_category['lines']" t-as="l">
+                        <tr style="font-size:16px">
+                                <td><span t-field="l.product_id.code"/></td>
+                                <td><span t-field="l.name"/></td>
+                                <td class="text-right">
+                                    <span t-field="l.product_uom_qty"/>
+                                    <span t-field="l.product_uom" groups="product.group_uom"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_unit"/>
+                                </td>
+                                <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                                    <span t-field="l.discount"/>
+                                </td>
+                                <td class="text-right" groups="sale.group_show_price_subtotal">
+                                    <span t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                </td>
+                                <td class="text-right" groups="sale.group_show_price_total">
+                                    <span t-field="l.price_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                            </td>
+                        </tr>
+                    </t>
+
+                    <t t-if="(layout_category_size &gt; 1 or page_size &gt; 1) and layout_category['subtotal']" style="font-size:16px" groups="sale.group_sale_layout">
+                        <tr class="text-right">
+                            <td colspan="6">
+                                <strong>Subtotal: </strong>
+                                <t t-set="subtotal" t-value="sum(line.price_subtotal for line in layout_category['lines'])"/>
+                                <span t-esc="subtotal" t-options="{'widget': 'monetary', 'display_currency': doc.pricelist_id.currency_id}"/>
+                                </td>
+                            </tr>
+                        </t>
+
+                    </t>
+            </xpath>
+           
+            
+            <xpath expr="//div[@class='clearfix']" position="after">
+                <div style="font-size:16px" class="row mt32 mb32" id="infobanco">
+                    <div class="col-xs-3">
+                         <strong>Fecha Vencimiento:</strong>
+                         <p t-field="doc.validity_date"/>
+                     </div>
+                     <div class="col-xs-3">
+                         <strong>Forma de Pago:</strong>
+                         <p t-field="doc.payment_term_id"/>
+                     </div>
+                     <div class="col-xs-3">
+                         <strong>Datos Bancarios:</strong>
+                         <p>0000000 BANCO XXX</p>
+                     </div>
+                </div>
+            </xpath>
+            
+            <xpath expr="//p[@t-if='doc.payment_term_id.note']" position="replace"/>
+            
+        </data>
