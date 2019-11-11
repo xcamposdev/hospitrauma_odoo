@@ -1,5 +1,6 @@
-﻿<?xml version="1.0"?>
-<data inherit_id="stock.report_picking">
+﻿<odoo>
+	<data>
+		<template id="report_picking_custom" inherit_id="stock.report_picking">
             <!--<xpath expr="//div[@class='']" position="replace">
                 
             </xpath>-->
@@ -94,5 +95,7 @@
             
             <!--<xpath expr="//table[@class='table table-condensed']//tbody//tr//td[6]" position="replace"/>-->
             
-        </data>
+		</template>	
+    </data>
+</odoo>
     

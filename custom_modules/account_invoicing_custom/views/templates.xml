@@ -1,5 +1,6 @@
-﻿<?xml version="1.0"?>
-<data inherit_id="account.report_invoice_document">
+﻿<odoo>
+	<data>
+		<template id="report_invoice_document_custom" inherit_id="account.report_invoice_document">
             
             <xpath expr="//p[@t-if='o.comment']" position="replace"/>
             
@@ -79,6 +80,7 @@
             </xpath>
             
             <xpath expr="//p[@t-if='o.payment_term_id']" position="replace"/>
-           
-        </data>
+        </template>   
+	</data>
+</odoo>
         
