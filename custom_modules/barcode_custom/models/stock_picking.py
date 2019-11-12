@@ -22,22 +22,28 @@ class StockPicking(models.Model):
             lot = self.env['stock.production.lot'].search([('name', '=', lot_barcode)])
             if len(product) > 1:
                 # if more than one product, raise warning
-                raise Warning('Several products have the same serial number.')
-            else:
-                # else add line
-                self.move_line_ids += self.move_line_ids.new({
-                    'product_id': product.id,
-                    'product_uom_id': product.uom_id.id,
-                    'lot_id': lot.id,
-                    'location_id': self.location_id.id,
-                    'location_dest_id': self.location_dest_id.id,
-                    'qty_done': (product.tracking == 'none' and picking_type_lots) and qty or 0.0,
-                    'product_uom_qty': 0.0,
-                    'date': fields.datetime.now(),
-                })
+                raise Warning('Several products have the same serial number. %s' % product.mapped('name'))
+            if not product:
+                raise Warning('Product not found.')
+            if len(lot) > 1:
+                # if more than one lot, raise warning
+                raise Warning('Several lot have the same lot number.')
+            if not lot:
+                raise Warning('Lot not found.')
+            # else add line
+            self.move_line_ids += self.move_line_ids.new({
+                'product_id': product.id,
+                'product_uom_id': product.uom_id.id,
+                'lot_id': lot.id,
+                'location_id': self.location_id.id,
+                'location_dest_id': self.location_dest_id.id,
+                'qty_done': (product.tracking == 'none' and picking_type_lots) and qty or 0.0,
+                'product_uom_qty': 0.0,
+                'date': fields.datetime.now(),
+            })
         else:
             # call super
-            super(StockPicking, self).on_barcode_scanned(barcode)
+            return super(StockPicking, self).on_barcode_scanned(barcode)
 
 
         
