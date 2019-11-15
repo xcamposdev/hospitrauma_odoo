@@ -23,7 +23,8 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        # report
+        'reports/barcode_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

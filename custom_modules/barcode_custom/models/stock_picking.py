@@ -12,6 +12,7 @@ class StockPicking(models.Model):
         str00 = '00'
         str99 = '99'
         str_barcode = str(barcode)
+        import pdb; pdb.set_trace()
         if str_barcode.find(str00) > -1 and str_barcode.find(str99) > -1:
             # If barcode has the format '00product99lot' encode product and lot in new line
             str_barcode = str(barcode)
@@ -37,7 +38,7 @@ class StockPicking(models.Model):
                 'lot_id': lot.id,
                 'location_id': self.location_id.id,
                 'location_dest_id': self.location_dest_id.id,
-                'qty_done': (product.tracking == 'none' and picking_type_lots) and qty or 0.0,
+                'qty_done': (product.tracking == 'none' and picking_type_lots) and qty or 1.0,
                 'product_uom_qty': 0.0,
                 'date': fields.datetime.now(),
             })

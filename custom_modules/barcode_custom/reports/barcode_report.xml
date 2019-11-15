@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <report
+        id="report_barcode_print"
+        model="stock.picking"
+        string="Hospitrauma product barcode to print"
+        name="barcode_custom.report_template_barcode_print"
+        file="barcode_custom.report_template_barcode_print"
+        report_type="qweb-pdf"/>
+
+    <record id="report_barcode_print" model="ir.actions.report">
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+     <template id="report_template_barcode_print">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <t t-set="counter" t-value="0" />
+                <t t-set="barcode_list" t-value="()" />
+                <t t-foreach="docs.move_lines" t-as="line">
+                    <t t-set="barcode" t-value="'00%s99%s' %(line.product_id.barcode, line.move_line_ids.lot_name)"/> 
+                    <t t-foreach="range(0, int(line.quantity_done))" t-as="elem">
+                        <div class="row">
+
+                            <div class="col-6 text-center">
+                                <p style="margin: 40px;">
+                                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', barcode , 800, 300)" style="width:300px;height:70px;"/> <br/>
+                                    <t t-esc='barcode' />
+                                    <t t-set="counter" t-value="counter + 1" />
+                                </p>
+                            </div>
+                            <div style="page-break-inside: always;" />
+                        </div>
+                    </t>
+                </t>                
+            </div>
+        </t>
+    </template>
+</odoo>
