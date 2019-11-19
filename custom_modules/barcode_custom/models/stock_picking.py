@@ -12,7 +12,6 @@ class StockPicking(models.Model):
         str00 = '00'
         str99 = '99'
         str_barcode = str(barcode)
-        import pdb; pdb.set_trace()
         if str_barcode.find(str00) > -1 and str_barcode.find(str99) > -1:
             # If barcode has the format '00product99lot' encode product and lot in new line
             str_barcode = str(barcode)
