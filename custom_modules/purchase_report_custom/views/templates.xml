@@ -2,8 +2,9 @@
     <data>
         <template id="report_purchaseorder_document_custom" inherit_id="purchase.report_purchaseorder_document">
             
-			<xpath expr="//div[@class='col-xs-6']//div" position="replace">
+			<xpath expr="//div[@class='col-xs-6']" position="replace">
                 <div>
+					<p>Dirección de envío:</p
 					<p>Hospitrauma</p>
 					<p>C/ Padilla 228, 1º 1ª (Almacen)</p>
 					<p>08013 Barcelona</p>
