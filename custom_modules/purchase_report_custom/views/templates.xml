@@ -4,12 +4,14 @@
             
 			<xpath expr="//div[@class='col-xs-6']" position="replace">
                 <div>
-					<p>Dirección de envío:</p
-					<p>Hospitrauma</p>
-					<p>C/ Padilla 228, 1º 1ª (Almacen)</p>
-					<p>08013 Barcelona</p>
-					<p>España</p>
-					<p>Telf. 934510634</p>
+					<p>
+						Dirección de envío:
+						Hospitrauma
+						C/ Padilla 228, 1º 1ª (Almacen)
+						08013 Barcelona
+						España
+						Telf. 934510634
+					</p>
                 </div>
             </xpath>
 			
@@ -22,7 +24,8 @@
             
             <xpath expr="//table[@class='table table-condensed']//thead" position="replace">
                 <tr>
-                    <th class="text-center"><strong>[Referencia] Descripción</strong></th>
+					<th class="text-center"><strong>Referencia</strong></th>
+                    <th class="text-center"><strong>Descripción</strong></th>
                     <th class="text-center"><strong>Cantidad</strong></th>
                 </tr>
             </xpath>
@@ -30,7 +33,10 @@
             <xpath expr="//table[@class='table table-condensed']//tbody//tr" position="replace">
                 <tr t-foreach="o.order_line" t-as="line">
                             <td>
-                                <span t-field="line.name"/>
+                                <span t-field="line.product_id.default_code"/>
+                            </td>
+							<td>
+                                <span t-field="line.product_id.description"/>
                             </td>
                             <!--<td>
                                 <span t-esc="', '.join(map(lambda x: x.name, line.taxes_id))"/>
