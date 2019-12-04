@@ -5,11 +5,11 @@
 			<xpath expr="//div[@class='col-xs-6']" position="replace">
                 <div>
 					<p>
-						Dirección de envío:
-						Hospitrauma
-						C/ Padilla 228, 1º 1ª (Almacen)
-						08013 Barcelona
-						España
+						Dirección de envío:<br>
+						Hospitrauma<br>
+						C/ Padilla 228, 1º 1ª (Almacen)<br>
+						08013 Barcelona<br>
+						España<br>
 						Telf. 934510634
 					</p>
                 </div>
