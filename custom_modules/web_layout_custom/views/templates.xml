@@ -21,7 +21,7 @@
 			
 			<xpath expr="//div[@class='footer o_boxed_footer']" position="replace">
 				<div class="footer o_boxed_footer">
-					</br>
+					<br/>
 					<div class="text-center">
 						<ul class="list-inline">
 							<li t-if="company.phone">Tel: <span t-field="company.phone"/></li>
