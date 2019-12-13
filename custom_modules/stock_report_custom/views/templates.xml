@@ -115,7 +115,7 @@
 			<xpath expr="//table[@class='table table-condensed']" position="before">
                 <div style="font-size:16px" id="datosIntervencion">
                     <div t-if="o.sale_id.note">
-                        <strong>Datos intervención:</strong>
+                        <strong>Datos intervención: </strong>
                         <p t-field="o.sale_id.note"/>
                     </div>
                 </div>
