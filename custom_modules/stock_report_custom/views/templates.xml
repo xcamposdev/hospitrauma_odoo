@@ -1,9 +1,36 @@
 ﻿<odoo>
 	<data>
 		<template id="report_picking_custom" inherit_id="stock.report_picking">
-            <!--<xpath expr="//div[@class='']" position="replace">
-                
-            </xpath>-->
+            <xpath expr="//div[@class='row']" position="replace">
+                <div class="row" style="font-size:16px">
+					<div class="col-xs-6">
+						<div t-if="o.move_lines and o.move_lines[0].partner_id and o.move_lines[0].partner_id.id != o.partner_id.id">
+							<span><strong>Dirección:</strong></span>
+							<div t-field="o.move_lines[0].partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+						</div>
+						<div t-if="o.picking_type_id.code != 'internal' and (not o.move_lines or not o.move_lines[0].partner_id) and o.picking_type_id.warehouse_id.partner_id">
+							<span><strong>Dirección:</strong></span>
+							<div t-field="o.picking_type_id.warehouse_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+						</div>
+					</div>
+					<div class="col-xs-5 col-xs-offset-1">
+						<div t-if="o.picking_type_id.code=='incoming' and o.partner_id">
+							<span><strong>Dirección:</strong></span>
+						</div>
+						<div t-if="o.picking_type_id.code=='internal' and o.partner_id">
+							<span><strong>Dirección:</strong></span>
+						</div>
+						<div t-if="o.picking_type_id.code=='outgoing' and o.partner_id">
+							<span><strong>Dirección:</strong></span>
+						</div>
+						<div t-if="o.partner_id" name="partner_header">
+							<div t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+							<p t-if="o.sudo().partner_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'NIF'"/>: <span t-field="o.sudo().partner_id.vat"/></p>
+						</div>
+					</div>
+				</div>
+            </xpath>
+			
             <xpath expr="//img[@class='pull-right mb16']" position="replace"/>
             
             <xpath expr="//table[@class='table table-condensed']//thead//tr//th[1]" position="replace"/>
@@ -83,6 +110,15 @@
                         </table>
                     </t>
                 </td>
+            </xpath>
+			
+			<xpath expr="//table[@class='table table-condensed']" position="before">
+                <div style="font-size:16px" id="datosIntervencion">
+                    <div t-if="o.sale_id.note">
+                        <strong>Datos intervención:</strong>
+                        <p t-field="o.sale_id.note"/>
+                    </div>
+                </div>
             </xpath>
             
             <!--<xpath expr="//table[@class='table table-condensed']//tbody//tr//td[4]" position="replace"/>-->
