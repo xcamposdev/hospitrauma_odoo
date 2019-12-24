@@ -1,6 +1,7 @@
 <odoo>
     <data>
         <template id="external_layout_boxed_custom" inherit_id="web.external_layout_boxed">
+		
             <xpath expr="//div[@class='header o_boxed_header']" position="replace">
                 <div style="font-size:16px;height:150px;background-image:url('https://i.ibb.co/GPyc3Pk/cabecera-factura.jpg');" class="header o_boxed_header">
                     <div class="row mb8">
@@ -17,6 +18,24 @@
                     </div>
                 </div>
             </xpath>
+			
+			<xpath expr="//div[@class='footer o_boxed_footer']" position="replace">
+				<div class="footer o_boxed_footer">
+					<br/>
+					<div class="text-center">
+						<ul class="list-inline">
+							<li t-if="company.phone">Tel: <span t-field="company.phone"/></li>
+							<li t-if="company.email">Mail: <span t-field="company.email"/></li>
+							<li t-if="company.website">Web: <span t-field="company.website"/></li>
+							<li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'NIF'"/>: <span t-field="company.vat"/></li>
+						</ul>
+						<div t-field="company.report_footer"/>
+						<div>
+							Page: <span class="page"/> / <span class="topage"/>
+						</div>
+					</div>
+				</div>
+			</xpath>
             
         </template>
     </data>
