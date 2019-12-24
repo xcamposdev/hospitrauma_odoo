@@ -35,6 +35,7 @@ class StockPicking(models.Model):
                 'product_id': product.id,
                 'product_uom_id': product.uom_id.id,
                 'lot_id': lot.id,
+                'lot_name': lot_barcode,
                 'location_id': self.location_id.id,
                 'location_dest_id': self.location_dest_id.id,
                 'qty_done': (product.tracking == 'none' and picking_type_lots) and qty or 1.0,
