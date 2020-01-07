@@ -14,7 +14,8 @@
     </record>
 
      <template id="report_template_barcode_print">
-        <t t-call="web.external_layout">
+        <!--<t t-call="web.external_layout">-->
+        <t t-call="web.external_layout_standard">
             <div class="page">
                 <t t-foreach="docs.move_line_ids" t-as="line">
                     <t t-set="barcode" t-value="'00%s99%s' %(line.product_id.barcode, line.lot_name)"/> 
@@ -23,7 +24,7 @@
 
                             <!--<div class="col-6 text-center">-->
                             <div class="col-xs-6">
-                                <p style="margin: 40px;">
+                                <p style="margin: 20px;">
                                     <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', barcode , 800, 300)" style="width:300px;height:70px;"/> <br/>
                                 </p>
                             </div>
