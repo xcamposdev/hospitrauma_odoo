@@ -32,6 +32,10 @@
             </xpath>
 			
             <xpath expr="//img[@class='pull-right mb16']" position="replace"/>
+			
+			<xpath expr="//h1[@class='mt0 pull-left']" position="replace">
+                <h1 t-field="o.origin" class="mt0 pull-left"/>
+            </xpath>
             
             <xpath expr="//table[@class='table table-condensed']//thead//tr//th[1]" position="replace"/>
             
