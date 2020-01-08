@@ -126,10 +126,6 @@
                      <strong>Plazo de Pago:</strong>
                      <p t-field="o.payment_term_id"/>
                  </div>
-                 <div class="col-xs-3" style="font-size:16px">
-                     <strong>Datos Bancarios:</strong>
-                     <p>0000000 BANCO XXX</p>
-                 </div>
             </xpath>
             
             <xpath expr="//p[@t-if='o.payment_term_id']" position="replace"/>
