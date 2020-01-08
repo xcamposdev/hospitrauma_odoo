@@ -54,7 +54,7 @@
                 <tbody class="invoice_tbody">
                     <tr style="font-size:16px" t-foreach="o.invoice_line_ids" t-as="l">
                         <td><span style="font-size:14px" t-field="l.product_id.code"/></td>
-                        <td><span t-field="l.product_id.name"/></td>
+                        <td><span t-field="l.name"/></td>
                         <td><span style="font-size:14px" t-field="l.product_id.code"/></td>
                         <td class="text-right">
                             <span t-field="l.quantity"/>
