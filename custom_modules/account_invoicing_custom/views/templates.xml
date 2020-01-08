@@ -42,7 +42,7 @@
                 <tr>
                     <th class="text-center">Referecia</th>
                     <th class="text-center">Descripción</th>
-                    <th class="text-center">Lote</th>
+                    <!--<th class="text-center">Lote</th>-->
                     <th class="text-center">Cantidad</th>
                     <th class="text-center">Prec. Uni.</th>
                     <th t-if="display_discount" class="text-center">Dto(%)</th>
@@ -55,7 +55,7 @@
                     <tr style="font-size:16px" t-foreach="o.invoice_line_ids" t-as="l">
                         <td><span style="font-size:14px" t-field="l.product_id.code"/></td>
                         <td><span t-field="l.name"/></td>
-                        <td><span style="font-size:14px" t-field="l.product_id.code"/></td>
+                        <!--<td><span style="font-size:14px" t-field="l.product_id.code"/></td>-->
                         <td class="text-right">
                             <span t-field="l.quantity"/>
                             <span t-field="l.uom_id" groups="product.group_uom"/>
